@@ -50,13 +50,13 @@ func reformData(data []byte) []byte {
 func createXorPad(seed uint64) []byte {
 	first := New()
 	first.Seed(int64(seed))
-	// generator := New()
-	// generator.Seed(first.Generate())
-	// generator.Generate()
+	generator := New()
+	generator.Seed(first.Generate())
+	generator.Generate()
 	xorPad := make([]byte, 4096)
 
 	for i := 0; i < 4096; i += 8 {
-		value := first.Generate()
+		value := generator.Generate()
 		binary.BigEndian.PutUint64(xorPad[i:i+8], uint64(value))
 	}
 	return xorPad
